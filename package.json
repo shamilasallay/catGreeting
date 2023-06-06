@@ -1,0 +1,24 @@
+{
+  "name": "catgreeting",
+  "version": "1.0.0",
+  "description": "Generate a greeting card with cat images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamilasallay/catGreeting.git"
+  },
+  "author": "shamila sallay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shamilasallay/catGreeting/issues"
+  },
+  "homepage": "https://github.com/shamilasallay/catGreeting#readme",
+  "dependencies": {
+    "merge-img": "^2.1.3",
+    "minimist": "^1.2.8",
+    "request": "^2.88.2"
+  }
+}
