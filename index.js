@@ -48,17 +48,3 @@ export const generateCatGreeting = async (requestParams) => {
     throw Error('Error generating cat greeting :', err.message)
   }
 };
-
-
-
-
-const requestParams = {
-  greetings: 'Hey there shamila',
-  width: 400, 
-  height: 300,
-  color: 'Pink', 
-  size: 100,
-  fileName: 'mergedImage.png'
-}
-let response = await generateCatGreeting(requestParams)
-console.log("response ",response)
