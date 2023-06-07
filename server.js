@@ -2,7 +2,7 @@ import http from 'http';
 import { generateCatGreeting } from './index.js';
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'GET') {
+  if (req.method === 'POST') {
     let body = '';
     req.on('data', (chunk) => {
       body += chunk.toString();
