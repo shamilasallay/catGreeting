@@ -16,9 +16,10 @@ export const generateCatGreeting = async (requestParams) => {
     if (!greetings) {
       throw new Error('Should contain greetings sentence with at least two words')
     }
-    if(fileName && !path.extname(fileName).toLowerCase().includes('jpg','jpeg', 'png')){
+    if(fileName && !['.jpg', '.png'].includes(path.extname(fileName).toLowerCase())){
       throw new Error('Invalid file extension. Supported extensions are .jpg and .png.');
     }
+    
     let greetingsArr = greetings.split(' ');
     if (greetingsArr.length < 2) {
       throw new Error('Greetings sentence should have at least two words')
@@ -53,7 +54,11 @@ export const generateCatGreeting = async (requestParams) => {
 
 const requestParams = {
   greetings: 'Hey there shamila',
-  width: 400, color: 'Pink', size: 100
+  width: 400, 
+  height: 300,
+  color: 'Pink', 
+  size: 100,
+  fileName: 'mergedImage.png'
 }
 let response = await generateCatGreeting(requestParams)
 console.log("response ",response)
