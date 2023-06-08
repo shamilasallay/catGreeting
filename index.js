@@ -1,16 +1,15 @@
 
 import path from 'path';
 import minimist from 'minimist';
-import { helperFunctions } from './util/helpers.js'
-import { utilFunctions } from './util/util.js'
-import { BASE_URL } from './config.js';
 import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_COLOR,
   DEFAULT_IMAGE_SIZE,
   DEFAULT_FILE_NAME
-} from './util/constants.js'
+} from './src/constants.js'
+import { mergeImages, writeImageToFile } from './src/util/index.js';
+import { fetchCatImage } from './src/services/fetchImage.js';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -22,7 +21,7 @@ export const generateCatGreeting = async () => {
       height = 500, 
       color = 'Pink', 
       size = 100,
-      fileName = 'cat-card.png'
+      fileName = 'cat-card.jpg'
     } = argv;
 
     if (fileName && !['.jpg', '.png'].includes(path.extname(fileName).toLowerCase())) {
@@ -45,11 +44,11 @@ export const generateCatGreeting = async () => {
     const catImages = await Promise.all(
       greetingsArr.map((greeting) => {
         params.greeting = greeting;
-        return helperFunctions.fetchCatImage(BASE_URL, params);
+        return fetchCatImage(params);
       })
     )
-    const mergedImg = await utilFunctions.mergeImages(catImages);
-    utilFunctions.writeImagetoFile(mergedImg, imgFile);
+    const mergedImg = await mergeImages(catImages);
+    writeImageToFile(mergedImg, imgFile);
     return "Successfully created a cat card!!!"
   }
   catch (err) {
@@ -58,4 +57,4 @@ export const generateCatGreeting = async () => {
   }
 };
 
-generateCatGreeting()
+generateCatGreeting();
