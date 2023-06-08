@@ -1,7 +1,7 @@
 
 import mergeImg from 'merge-img';
 
-const utilFunctions = {
+export const utilFunctions = {
   getUrl: (urlTemplate, params) => {
     return urlTemplate.replace(/{(\w+)}/g, (placeholderWithDelimiters, placeholderWithoutDelimiters) => {
       if (params[placeholderWithoutDelimiters]) return params[placeholderWithoutDelimiters];
@@ -25,5 +25,3 @@ const utilFunctions = {
     }
   }
 }
-
-export default utilFunctions;

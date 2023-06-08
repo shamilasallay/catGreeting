@@ -9,17 +9,9 @@
 
 ### Run Locally
 
-``` node server.js ```
+Execute the cat greeting card function as below with dynamic values for input parameters,
+node index.js --greetings "Hey there" --width "450" --height "450" --color "Blue" --size "120" --fileName "cat-card.png"
 
-### input parameters
-width, height, color, size, and fileName are not mandatory
-```
-    {
-        greetings: 'Hey there shamila',
-        width: 400, 
-        height: 300,
-        color: 'Pink', 
-        size: 100,
-        fileName: 'mergedImage.png'
-    }
-```
+Execute the cat greeting card function with default input parameters,
+node index.js
+

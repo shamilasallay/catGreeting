@@ -1,30 +1,39 @@
 
-import path  from 'path';
-import helpers from './util/helpers.js'
-import utils from './util/util.js'
+import path from 'path';
+import minimist from 'minimist';
+import { helperFunctions } from './util/helpers.js'
+import { utilFunctions } from './util/util.js'
 import { BASE_URL } from './config.js';
-import { DEFAULT_IMAGE_WIDTH, 
-         DEFAULT_IMAGE_HEIGHT, 
-         DEFAULT_IMAGE_COLOR, 
-         DEFAULT_IMAGE_SIZE, 
-         DEFAULT_FILE_NAME } from './util/constants.js'
+import {
+  DEFAULT_IMAGE_WIDTH,
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_COLOR,
+  DEFAULT_IMAGE_SIZE,
+  DEFAULT_FILE_NAME
+} from './util/constants.js'
 
-export const generateCatGreeting = async (requestParams) => {
+const argv = minimist(process.argv.slice(2));
+
+export const generateCatGreeting = async () => {
   try {
-    const { greetings, width, height, color, size, fileName } = requestParams;
+    const {
+      greetings = 'Hello You',
+      width = 400, 
+      height = 500, 
+      color = 'Pink', 
+      size = 100,
+      fileName = 'cat-card.png'
+    } = argv;
 
-    if (!greetings) {
-      throw new Error('Should contain greetings sentence with at least two words')
-    }
-    if(fileName && !['.jpg', '.png'].includes(path.extname(fileName).toLowerCase())){
+    if (fileName && !['.jpg', '.png'].includes(path.extname(fileName).toLowerCase())) {
       throw new Error('Invalid file extension. Supported extensions are .jpg and .png.');
     }
-    
+
     let greetingsArr = greetings.split(' ');
     if (greetingsArr.length < 2) {
       throw new Error('Greetings sentence should have at least two words')
     }
-    
+
     const imgFile = fileName || DEFAULT_FILE_NAME;
     let params = {
       width: width || DEFAULT_IMAGE_WIDTH,
@@ -36,11 +45,11 @@ export const generateCatGreeting = async (requestParams) => {
     const catImages = await Promise.all(
       greetingsArr.map((greeting) => {
         params.greeting = greeting;
-        return helpers.fetchCatImage(BASE_URL, params);
+        return helperFunctions.fetchCatImage(BASE_URL, params);
       })
     )
-    const mergedImg = await utils.mergeImages(catImages);
-    utils.writeImagetoFile(mergedImg, imgFile);
+    const mergedImg = await utilFunctions.mergeImages(catImages);
+    utilFunctions.writeImagetoFile(mergedImg, imgFile);
     return "Successfully created a cat card!!!"
   }
   catch (err) {
@@ -48,3 +57,5 @@ export const generateCatGreeting = async (requestParams) => {
     throw Error('Error generating cat greeting :', err.message)
   }
 };
+
+generateCatGreeting()
