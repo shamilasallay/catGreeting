@@ -15,11 +15,11 @@
 width, height, color, size, and fileName are not mandatory
 ```
     {
-    greetings: 'Hey there shamila',
-    width: 400, 
-    height: 300,
-    color: 'Pink', 
-    size: 100,
-    fileName: 'mergedImage.png'
+        greetings: 'Hey there shamila',
+        width: 400, 
+        height: 300,
+        color: 'Pink', 
+        size: 100,
+        fileName: 'mergedImage.png'
     }
 ```
